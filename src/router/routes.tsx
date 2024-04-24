@@ -4,6 +4,8 @@ import { BrowserRouter,Routes,Route
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Edit from '../pages/Edit'
+import Signup from '../pages/Signup'
+import StudentDetails from '../pages/StudentDetails'
  export function ConfigRoutes() {
    return (
      <BrowserRouter>
@@ -12,6 +14,8 @@ import Edit from '../pages/Edit'
      <Route path="/" element={<Login />} />
      <Route path="/edit" element={<Edit />} />
      <Route path="/home" element={<Home />} />
+     <Route path="/signup" element={<Signup />} />
+     <Route path='/student-details' element={<StudentDetails />} />
      </Routes>
      </BrowserRouter>
    )

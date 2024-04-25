@@ -22,9 +22,14 @@ export const login = async (
 ) => {
   await httpClient
     .post("/login", form)
-    .then(() => {
-      console.log(form);
-      goToHomePage(navigate);
+    .then((data) => {
+      if (data.status === 200) {
+        const token = data.data.token;
+        sessionStorage.setItem("token", token);
+   
+          goToHomePage(navigate);
+        
+      }
     })
     .catch((err) => {
       console.log(err.response);

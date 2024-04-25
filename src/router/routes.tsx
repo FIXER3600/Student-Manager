@@ -9,6 +9,7 @@ import StudentDetails from '../pages/StudentDetails'
  export function ConfigRoutes() {
    return (
      <BrowserRouter>
+    
      <Routes>
 
      <Route path="/" element={<Login />} />

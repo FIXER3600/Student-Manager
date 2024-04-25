@@ -16,11 +16,14 @@ import { Formik, Form, Field } from "formik";
 import Eye from "../../assets/eye-open.png";
 import EyeClosed from "../../assets/eye-closed.png";
 import IconError from "../../assets/errorIcon.png";
+import DeltaLogo from "../../assets/deltaGlobal-deltagrupo-logo-color.svg"
 import {
   Link as LinkSignup,
+  useNavigate,
   // useNavigate
 } from "react-router-dom";
 import React, { useState } from "react";
+import { login } from "../../services/user";
 const LoginSchema = Yup.object().shape(
   {
     email: Yup.string().when("password", {
@@ -45,22 +48,25 @@ const initialValues = {
 };
 
 function Login() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (
-	//values
+	values: {
+    email: string;
+    password: string;
+  }
 ) => {
-    //     try {
-    //       login(
-    //         {
-    //           email: values.email,
-    //           password: values.password,
-    //         },
-    //         navigate
-    //       );
-    //     } catch (error) {
-    //       console.error("Erro na requisição:", error);
-    //     }
+        try {
+          login(
+            {
+              email: values.email,
+              password: values.password,
+            },
+            navigate
+          );
+        } catch (error) {
+          console.error("Erro na requisição:", error);
+        }
   };
   return (
     <Formik
@@ -76,7 +82,7 @@ function Login() {
             display={"flex"}
           w={"100vw"}
             h={"100vh"}
-            backgroundColor={"#E3E3E3"}
+            backgroundColor={"#FFF"}
             justifyContent={"center"}
             alignItems={"center"}
           >
@@ -87,7 +93,9 @@ function Login() {
               alignItems={"center"}
       
             >
- <Text fontSize='5xl' marginBottom={"20px"}>LOGIN</Text>
+<Image src={DeltaLogo}/>
+<Text marginBottom={"1em"} fontSize='3xl'>Entre com sua conta no sistema</Text>
+
               <FormControl>
                 {errors.password ===
                 "Todos os campos precisam ser preenchidos" ? (
@@ -187,7 +195,7 @@ function Login() {
               </Box>
 
               <Center marginTop={5} className="font-text">
-                <Button size='lg' type={"submit"}>Entrar</Button>
+                <Button color={"white"} backgroundColor={'#0089BF'} _hover={{backgroundColor:"#33A1CC"}} size='lg' type={"submit"}>Entrar</Button>
               </Center>
             </Box>
           </Box>

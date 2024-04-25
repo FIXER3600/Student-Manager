@@ -1,23 +1,23 @@
-import { Box, Grid, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, Text } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import CardStudent from '../../components/CardStudent'
 import Header from '../../components/Header'
 import useProtectedPage from '../../hooks/useProtectedPage'
 import { GlobalContext } from '../../GlobalContext/globalContext'
+import { goToAddStudentPage } from '../../router/coordinator'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
   useProtectedPage()
   const [sortParameter, setSortParameter] = useState("default");
+  const navigate=useNavigate()
   const {
    students,
-    setStudents,
     searchStudent,
   } = useContext(GlobalContext);
   const handleSortParameter = ({ target }) => {
     setSortParameter(target.value);
   };
-console.log(students);
-console.log(searchStudent);
 
 
 
@@ -32,15 +32,17 @@ console.log(searchStudent);
       return nextStudent.name.localeCompare(currentStudent.name);
     }
   });
-  // console.log(filteredStudents);
   
   return (
    
       
     <Box w={"100vw"} h={"100vh"} display={"flex"} flexDirection={"column"}>
     <Header />
-      <Text margin={"50px"}>LISTA DE ALUNOS</Text>
-
+    <Flex justifyContent={"space-between"}>
+    <Text margin={"50px"}>LISTA DE ALUNOS</Text>
+    <Button m={"2em"} onClick={()=>goToAddStudentPage(navigate)}>Novo Aluno</Button>
+    </Flex>
+    
       
       <Grid templateColumns='repeat(5, 1fr)' gap={6} m={"5em"}>
       {!filteredStudents.length && (

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Image, Text } from '@chakra-ui/react'
+import { goToAddStudentPage } from '../../router/coordinator';
+import { useNavigate } from 'react-router-dom';
 
 interface CardStudentProps {
 	name: string;
@@ -9,8 +11,9 @@ interface CardStudentProps {
 	address:string;
 	photo: string;
       }
-      
+
 const CardStudent: React.FC<CardStudentProps> = ({ name, email, phone,address, photo }) => {
+	const navigate=useNavigate()
   return (
     <Box 
     boxShadow="rgb(0 0 0 / 30%) 0px 4px 8px 0px"
@@ -20,7 +23,9 @@ const CardStudent: React.FC<CardStudentProps> = ({ name, email, phone,address, p
     h={"auto"}
     fontFamily={"Flexo-Demi"}
     _hover={{ transform: `translate(0px, -5px)` }}
-    cursor={"pointer"}>
+    cursor={"pointer"}
+   
+    >
 	<Image src={photo}/>
 	<Text fontSize="2xl" textTransform={"capitalize"}>{name}</Text>
 	<Text>{email}</Text>

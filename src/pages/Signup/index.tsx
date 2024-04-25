@@ -1,7 +1,6 @@
 import {
   Box,
   Image,
-  Link as ChakraLink,
   Text,
   FormControl,
   FormErrorMessage,
@@ -18,9 +17,7 @@ import EyeClosed from "../../assets/eye-closed.png";
 import DeltaLogo from "../../assets/deltaGlobal-deltagrupo-logo-color.svg";
 import IconError from "../../assets/errorIcon.png";
 import {
-  Link as LinkSignup,
   useNavigate,
-  // useNavigate
 } from "react-router-dom";
 import React, { useState } from "react";
 import { signup } from "../../services/user";

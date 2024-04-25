@@ -6,3 +6,9 @@ export const goToLoginPage=(navigate: NavigateFunction)=>{
 export const goToHomePage=(navigate: NavigateFunction)=>{
 	navigate("/home")
 }
+export const goToAddStudentPage=(navigate: NavigateFunction)=>{
+	navigate("/add-student")
+}
+export const goToStudentDetailsPage=(id:number,navigate: NavigateFunction)=>{
+	navigate(`/student-details/${id}`)
+}

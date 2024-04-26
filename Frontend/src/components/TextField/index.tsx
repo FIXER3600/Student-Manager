@@ -2,7 +2,8 @@ import { Center, Input } from "@chakra-ui/react";
 
 
       
-function TextField({ field, hasError,isCheck, ...props } ) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function TextField({ field, hasError,isCheck, ...props }:any ) {
   return (
     <Center>
     

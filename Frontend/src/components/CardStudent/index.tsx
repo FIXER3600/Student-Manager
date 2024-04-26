@@ -42,12 +42,12 @@ const CardStudent: React.FC<CardStudentProps> = ({
       p={"1em"}
       w={["16em"]}
       h={"auto"}
-      fontFamily={"Flexo-Demi"}
       _hover={{ transform: `translate(0px, -5px)` }}
       cursor={"pointer"}
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"space-between"}
+      fontFamily="Helvetica"
     >
       <Image src={photo || DefaultImage} />
       <Text fontSize="2xl" textTransform={"capitalize"}>

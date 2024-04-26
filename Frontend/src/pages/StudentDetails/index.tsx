@@ -9,24 +9,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Form, Formik, Field } from "formik";
-import React, { useEffect, useState } from "react";
-import { deleteStudent, editStudent, getStudentById } from "../../services/student";
+import { useEffect, useState } from "react";
+import { editStudent, getStudentById } from "../../services/student";
 import { useNavigate, useParams } from "react-router-dom";
-import * as Yup from "yup";
 import DefaultImage from "../../assets/default-profile-picture.jpg";
-import IconError from "../../assets/errorIcon.png";
 import DeltaLogo from "../../assets/deltaGlobal-deltagrupo-logo-color.svg";
 import TextField from "../../components/TextField";
 import { goToHomePage } from "../../router/coordinator";
 import ConfirmDeleteModal from "../ConfirmDeleteModal";
-
-// const EditStudentSchema = Yup.object().shape({
-//   name: Yup.string().required("Campo obrigatório*"),
-//   email: Yup.string().required("Campo obrigatório*"),
-//   phone: Yup.string().required("Campo obrigatório*"),
-//   address: Yup.string().required("Campo obrigatório*"),
-//   photo: Yup.string().required("Campo obrigatório*"),
-// });
 
 function StudentDetails() {
   const navigate = useNavigate();
@@ -39,21 +29,12 @@ function StudentDetails() {
   const [photo, setPhoto] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const [student, setStudent] = useState({
-    id: 0,
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    photo: "",
-  });
 
   useEffect(() => {
     const getStudent = async () => {
       try {
         const data = await getStudentById(params.id);
         const { id, nome, email, telefone, endereco, foto } = data.data;
-        setStudent({ id: id, name: nome, email, phone: telefone, address: endereco, photo: foto });
         setId(id);
         setName(nome);
         setEmail(email);
@@ -97,15 +78,6 @@ function StudentDetails() {
     setDeleteModal(false); // Fecha o modal de confirmação
   };
 
-  const handleDeleteConfirmed = async () => {
-    try {
-      await deleteStudent(id, navigate);
-      setContador(contador + 1);
-      setDeleteModal(false); // Fecha o modal após a exclusão
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-    }
-  };
 
   return (
     <Flex alignItems="center" h="100vh" marginLeft="5em">
@@ -119,7 +91,6 @@ function StudentDetails() {
       </Flex>
 
       <Formik
-      //  validationSchema={EditStudentSchema}
         initialValues={initialValues}
         onSubmit={handleSubmit}
       >
@@ -267,11 +238,8 @@ function StudentDetails() {
       <ConfirmDeleteModal
         isOpen={deleteModal}
         onClose={handleModalClose}
-        onConfirm={handleDeleteConfirmed}
-        nameStudent={name}
         idStudent={id}
         message={`Deseja mesmo deletar o aluno ${name}?`}
-        pathNavigate={undefined}
       />
     </Flex>
   );

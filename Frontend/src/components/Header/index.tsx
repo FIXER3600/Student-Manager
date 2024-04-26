@@ -7,7 +7,8 @@ import { goToLoginPage } from '../../router/coordinator'
 import { useNavigate } from 'react-router-dom'
 function Header() {
   const { searchStudent, setSearchStudent } = useContext(GlobalContext)
-  const handleStudent = ({ target }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleStudent = ({ target }:any) => {
     setSearchStudent(target.value)
   }
   const navigate=useNavigate()

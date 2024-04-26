@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { editStudent, getStudentById } from "../../services/student";
 import { useNavigate, useParams } from "react-router-dom";
 import DefaultImage from "../../assets/default-profile-picture.jpg";
-import DeltaLogo from "../../assets/deltaGlobal-deltagrupo-logo-color.svg";
+import DeltaLogo from "../../assets/delta_assist_logo_fundo_branco.png";
 import TextField from "../../components/TextField";
 import { goToHomePage } from "../../router/coordinator";
 import ConfirmDeleteModal from "../ConfirmDeleteModal";
@@ -22,7 +22,6 @@ function StudentDetails() {
   const navigate = useNavigate();
   const params = useParams();
   const [deleteModal, setDeleteModal] = useState(false);
-  const [contador, setContador] = useState(0);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
@@ -46,7 +45,7 @@ function StudentDetails() {
       }
     };
     getStudent();
-  }, [contador, params.id]);
+  }, [params.id]);
 
   const initialValues = {
     id:id,
@@ -64,7 +63,7 @@ function StudentDetails() {
         params.id,
         navigate
       );
-      setContador(contador + 1);
+      window.location.reload()
     } catch (error) {
       console.error("Erro na requisição:", error);
     }

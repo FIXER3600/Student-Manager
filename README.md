@@ -33,22 +33,19 @@
     - Tela de edição com os mesmos campos do formulário de adicionar, preenchidos com os dados do aluno.
     - Botão de voltar para a Home.
     - Botão para confirmar a edição, que edita os dados e volta para a Home.
-
-https://github.com/FIXER3600/Student-Manager/assets/47544503/ff2c30ca-d0c3-4491-b986-72f9d2719fbb
-  
   - Modal de confirmação ao deletar aluno:
       - Botões "Sim" e "Não".
-    
-https://github.com/FIXER3600/Student-Manager/assets/47544503/02bc8046-b40e-4825-9cca-2a7e858ed246
+
 
 ### 🎥 Video Demonstrativo
-
 
 
 https://github.com/FIXER3600/Student-Manager/assets/47544503/525a8d06-8d4a-49c0-8397-ed7ff32be8d5
 
 
 https://github.com/FIXER3600/Student-Manager/assets/47544503/ff2c30ca-d0c3-4491-b986-72f9d2719fbb
+
+
 https://github.com/FIXER3600/Student-Manager/assets/47544503/02bc8046-b40e-4825-9cca-2a7e858ed246
 
 

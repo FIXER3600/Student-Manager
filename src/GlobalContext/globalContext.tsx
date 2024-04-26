@@ -9,7 +9,6 @@ export const GlobalStorage = ({ children }) => {
   const [students, setStudents] = useState([])
   const [searchStudent, setSearchStudent] = useState("")
   const [sortParameter, setSortParameter] = useState("a-z")
-
   useEffect(() => {
     httpClient.get(`/students`).then(({ data }) => {
 

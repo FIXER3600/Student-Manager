@@ -9,6 +9,6 @@ export const goToHomePage=(navigate: NavigateFunction)=>{
 export const goToAddStudentPage=(navigate: NavigateFunction)=>{
 	navigate("/add-student")
 }
-export const goToStudentDetailsPage=(id:number,navigate: NavigateFunction)=>{
+export const goToStudentDetailsPage=(id:string,navigate: NavigateFunction)=>{
 	navigate(`/student-details/${id}`)
 }

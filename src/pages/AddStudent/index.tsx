@@ -7,6 +7,9 @@ import {
   FormErrorMessage,
   Center,
   Button,
+  FormLabel,
+  Flex,
+  Input,
 } from "@chakra-ui/react";
 import TextField from "../../components/TextField";
 import * as Yup from "yup";
@@ -14,7 +17,7 @@ import { Formik, Form, Field } from "formik";
 import IconError from "../../assets/errorIcon.png";
 import DeltaLogo from "../../assets/delta_assist_logo_fundo_branco.png";
 import { Link as LinkSignup, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { addStudent } from "../../services/student";
 import { goToHomePage } from "../../router/coordinator";
 const AddStudentSchema = Yup.object().shape({
@@ -29,7 +32,7 @@ const AddStudentSchema = Yup.object().shape({
   phone: Yup.string().required("Campo obrigatório*"),
   address: Yup.string().required("Campo obrigatório*"),
 
-  photo: Yup.string().required("Campo obrigatório*"),
+  //  photo: Yup.string().required("Campo obrigatório*"),
 });
 
 const initialValues = {
@@ -42,6 +45,11 @@ const initialValues = {
 
 function AddStudent() {
   const navigate = useNavigate();
+  const [base64Image, setBase64Image] = useState(null);
+  const fileInputRef = useRef(null);
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
   const handleSubmit = async (values: {
     name: string;
@@ -57,7 +65,7 @@ function AddStudent() {
           email: values.email,
           telefone: values.phone,
           endereco: values.address,
-          foto: values.photo,
+          foto: base64Image,
         },
         navigate
       );
@@ -65,8 +73,52 @@ function AddStudent() {
       console.error("Erro na requisição:", error);
     }
   };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setBase64Image(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
-    <Formik
+    <Flex alignItems={"center"} marginLeft={"5em"}>
+      <Box>
+    
+                <Box display={"flex"} justifyContent={"center"} m={"1em"}>
+                  <Button onClick={()=>handleButtonClick}>Adicione uma imagem</Button>
+                 
+                  <Input
+                    as={TextField}
+                    id="photoInput" // Adicione um id ao input
+                    name="photo"
+                    type="file"
+                    ref={fileInputRef}
+                   // hidden
+                    onChange={handleImageUpload}
+                  
+            
+                  />
+                </Box>
+               
+            
+              {base64Image && (
+                <Image
+              
+                  src={base64Image}
+                  alt="Uploaded"
+                  style={{ maxWidth: "100%", maxHeight: "100px" }}
+                />
+              )}
+
+      </Box>
+      <Formik
       validationSchema={AddStudentSchema}
       initialValues={initialValues}
       onSubmit={handleSubmit}
@@ -90,6 +142,7 @@ function AddStudent() {
               <Text marginBottom={"1em"} fontSize="3xl">
                 Adicione um novo aluno ao sistema
               </Text>
+             
               <FormControl>
                 {errors.name === "Todos os campos precisam ser preenchidos" ? (
                   <Box display={"flex"} marginLeft={30} marginBottom={2}>
@@ -179,25 +232,8 @@ function AddStudent() {
                   </Text>
                 ) : null}
               </FormControl>
-              <br />
-              <FormControl>
-                <Box display={"flex"} justifyContent={"center"}>
-                  <Field
-                    as={TextField}
-                    name="photo"
-                    type="file"
-                    hasError={errors.photo}
-                    isCheck={errors.photo === undefined && values.photo !== ""}
-                  />
-                </Box>
-                <FormErrorMessage name="photo" />
-                {errors.photo === "Campo obrigatório*" && touched.photo ? (
-                  <Text fontFamily={"Questrial"} color="red.500">
-                    {errors.photo}
-                  </Text>
-                ) : null}
-              </FormControl>
-
+           
+             
               <Center display={"flex"}>
                 <Button
                   m={"2em"}
@@ -225,6 +261,8 @@ function AddStudent() {
         </Form>
       )}
     </Formik>
+    </Flex>
+   
   );
 }
 

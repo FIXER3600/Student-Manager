@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, Text,Image } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import CardStudent from '../../components/CardStudent'
 import Header from '../../components/Header'
@@ -6,10 +6,18 @@ import useProtectedPage from '../../hooks/useProtectedPage'
 import { GlobalContext } from '../../GlobalContext/globalContext'
 import { goToAddStudentPage } from '../../router/coordinator'
 import { useNavigate } from 'react-router-dom'
+import ConfirmDeleteModal from '../ConfirmDeleteModal'
 
 function Home() {
   useProtectedPage()
   const [sortParameter, setSortParameter] = useState("default");
+  let deleteModal=false
+  //  const [deleteModal,setDeleteModal]=useState(false)
+    const handleModal=()=>{
+    deleteModal=!deleteModal
+    console.log(deleteModal);
+    
+    }
   const navigate=useNavigate()
   const {
    students,
@@ -36,9 +44,9 @@ function Home() {
   return (
    
       
-    <Box w={"100vw"} h={"100vh"} display={"flex"} flexDirection={"column"}>
+    <Box w={"100vw"} h={"100%"} display={"flex"} flexDirection={"column"}>
     <Header />
-    <Flex justifyContent={"space-between"}>
+    <Flex justifyContent={"space-between"} w={"auto"}>
     <Text margin={"50px"}>LISTA DE ALUNOS</Text>
     <Button m={"2em"} onClick={()=>goToAddStudentPage(navigate)}>Novo Aluno</Button>
     </Flex>
@@ -58,18 +66,25 @@ function Home() {
           </>
         )}
         {
-          filteredStudents.map((student: { id:number,nome: string; email: string;endereco: string; telefone: string,photo:string }) => {
+          filteredStudents.map((student: { id:string,nome: string; email: string;endereco: string; telefone: string,foto:string }) => {
             return (
               <CardStudent
                 key={student.id}
                 name={student.nome}
                 email={student.email}
                 address={student.endereco}
-                phone={student.telefone} photo={'adad'}      
-              />
+                phone={student.telefone} photo={student.foto} id={student.id}
+                
+                />
             );
           })
         }
+        {
+          // deleteModal ? 
+        (   <ConfirmDeleteModal isOpen={deleteModal} onClose={handleModal} nameStudent={name} message={`Deseja mesmo deletar o aluno ${name}?`} pathNavigate={undefined}/>
+      )
+     // :null
+       }
       </Grid>
     </Box>
    

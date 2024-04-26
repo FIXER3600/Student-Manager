@@ -1,0 +1,85 @@
+{
+  "hash": "c0598958",
+  "configHash": "df6ea2ad",
+  "lockfileHash": "e3b0c442",
+  "browserHash": "ede66162",
+  "optimized": {
+    "@chakra-ui/icons": {
+      "src": "../../node_modules/@chakra-ui/icons/dist/index.mjs",
+      "file": "@chakra-ui_icons.js",
+      "fileHash": "bf8512b5",
+      "needsInterop": false
+    },
+    "@chakra-ui/react": {
+      "src": "../../node_modules/@chakra-ui/react/dist/index.mjs",
+      "file": "@chakra-ui_react.js",
+      "fileHash": "5f47ab0e",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "8770fe95",
+      "needsInterop": false
+    },
+    "formik": {
+      "src": "../../node_modules/formik/dist/formik.esm.js",
+      "file": "formik.js",
+      "fileHash": "84078212",
+      "needsInterop": false
+    },
+    "prop-types": {
+      "src": "../../node_modules/prop-types/index.js",
+      "file": "prop-types.js",
+      "fileHash": "d8000cb1",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "22961805",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "7fa83d6a",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "3eef1991",
+      "needsInterop": false
+    },
+    "yup": {
+      "src": "../../node_modules/yup/index.esm.js",
+      "file": "yup.js",
+      "fileHash": "ef3a6b2f",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-PECP3GHR": {
+      "file": "chunk-PECP3GHR.js"
+    },
+    "chunk-4DIDPAPR": {
+      "file": "chunk-4DIDPAPR.js"
+    },
+    "chunk-3FRX6HJD": {
+      "file": "chunk-3FRX6HJD.js"
+    },
+    "chunk-CMK54ICT": {
+      "file": "chunk-CMK54ICT.js"
+    },
+    "chunk-FBRNPY62": {
+      "file": "chunk-FBRNPY62.js"
+    },
+    "chunk-UM3JHGVO": {
+      "file": "chunk-UM3JHGVO.js"
+    },
+    "chunk-CEQRFMJQ": {
+      "file": "chunk-CEQRFMJQ.js"
+    }
+  }
+}

@@ -38,7 +38,8 @@ https://github.com/FIXER3600/Student-Manager/assets/47544503/ff2c30ca-d0c3-4491-
   
   - Modal de confirmação ao deletar aluno:
       - Botões "Sim" e "Não".
-        https://github.com/FIXER3600/Student-Manager/assets/47544503/02bc8046-b40e-4825-9cca-2a7e858ed246
+    
+https://github.com/FIXER3600/Student-Manager/assets/47544503/02bc8046-b40e-4825-9cca-2a7e858ed246
 
 ## Instruções de Instalação
 

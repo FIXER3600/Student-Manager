@@ -17,6 +17,8 @@ export const addStudent = async (
     .then((data) => {
       console.log(data);
       goToHomePage(navigate);
+      window.location.reload()
+
     })
     .catch((err) => {
       console.log(err.response);
@@ -34,7 +36,7 @@ export const editStudent = async (
   navigate: NavigateFunction
 ) => {
   await httpClient
-    .post(`/students/${id}`, form)
+    .put(`/students/${id}`, form)
     .then((data) => {
       console.log(data);
       goToHomePage(navigate);
@@ -58,9 +60,9 @@ export const getStudentById = async (id: string | undefined) => {
 };
 export const deleteStudent = async (id: string | undefined, navigate: NavigateFunction) => {
   await httpClient
-    .post(`/student/${id}`)
-    .then((data) => {
-      console.log(data);
+    .delete(`/students/${id}`)
+    .then(() => {
+    
       goToHomePage(navigate);
     })
     .catch((err) => {

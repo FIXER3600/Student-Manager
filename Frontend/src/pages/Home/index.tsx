@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Text,Image } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, Text,Image, Hide } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import CardStudent from '../../components/CardStudent'
 import Header from '../../components/Header'
@@ -8,16 +8,14 @@ import { goToAddStudentPage } from '../../router/coordinator'
 import { useNavigate } from 'react-router-dom'
 import ConfirmDeleteModal from '../ConfirmDeleteModal'
 
+
+
 function Home() {
+
+  
   useProtectedPage()
   const [sortParameter, setSortParameter] = useState("default");
-  let deleteModal=false
-  //  const [deleteModal,setDeleteModal]=useState(false)
-    const handleModal=()=>{
-    deleteModal=!deleteModal
-    console.log(deleteModal);
-    
-    }
+
   const navigate=useNavigate()
   const {
    students,
@@ -47,19 +45,20 @@ function Home() {
     <Box w={"100vw"} h={"100%"} display={"flex"} flexDirection={"column"}>
     <Header />
     <Flex justifyContent={"space-between"} w={"auto"}>
-    <Text margin={"50px"}>LISTA DE ALUNOS</Text>
+    <Text margin={"50px"} fontSize={"2em"} fontWeight={"bold"} fontFamily={"Helvetica"}>LISTA DE ALUNOS</Text>
     <Button m={"2em"} onClick={()=>goToAddStudentPage(navigate)}>Novo Aluno</Button>
     </Flex>
     
       
-      <Grid templateColumns='repeat(5, 1fr)' gap={6} m={"5em"}>
+      <Grid templateColumns='repeat(4, 1fr)' gap={6} m={"2em"}  overflow={'hidden'}>
       {!filteredStudents.length && (
-          <>
+            <>
             <Text
               align={"center"}
+              h={"100vh"}
               gridArea="1/1/3/5"
               fontSize="4xl"
-              fontFamily={"Flexo-Demi"}
+              fontFamily={"Helvetica"}
             >
              Aluno não encontrado!
             </Text>
@@ -78,13 +77,9 @@ function Home() {
                 />
             );
           })
+        
+          
         }
-        {
-          // deleteModal ? 
-        (   <ConfirmDeleteModal isOpen={deleteModal} onClose={handleModal} nameStudent={name} message={`Deseja mesmo deletar o aluno ${name}?`} pathNavigate={undefined}/>
-      )
-     // :null
-       }
       </Grid>
     </Box>
    

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { goToStudentDetailsPage } from "../../router/coordinator";
 import { useNavigate } from "react-router-dom";
 import DefaultImage from "../../assets/default-profile-picture.jpg";
-import { GlobalContext } from '../../GlobalContext/globalContext'
 import ConfirmDeleteModal from "../../pages/ConfirmDeleteModal";
+
 
 interface CardStudentProps {
   id: string;
@@ -25,8 +25,16 @@ const CardStudent: React.FC<CardStudentProps> = ({
   photo,
 }) => {
   const navigate = useNavigate();
+  const [deleteModal, setDeleteModal] = useState(false);
 
+  const deleteUser = async () => {
+    setDeleteModal(true); // Abre o modal de confirmação
+  };
 
+  const handleModalClose = () => {
+    setDeleteModal(false); // Fecha o modal de confirmação
+  };
+  
   return (
     <Box
       boxShadow="rgb(0 0 0 / 30%) 0px 4px 8px 0px"
@@ -37,7 +45,9 @@ const CardStudent: React.FC<CardStudentProps> = ({
       fontFamily={"Flexo-Demi"}
       _hover={{ transform: `translate(0px, -5px)` }}
       cursor={"pointer"}
-      
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"space-between"}
     >
       <Image src={photo || DefaultImage} />
       <Text fontSize="2xl" textTransform={"capitalize"}>
@@ -46,13 +56,21 @@ const CardStudent: React.FC<CardStudentProps> = ({
       <Text>{email}</Text>
       <Text>{address}</Text>
       <Text>{phone}</Text>
-      <Flex>
+      <Flex justifyContent={"space-between"} alignItems={"flex-end"} marginTop={"1em"}>
       <Button onClick={() =>  goToStudentDetailsPage(id, navigate)}>Editar</Button>
+      <Button onClick={deleteUser} color="white" backgroundColor="#b81414">
+          Deletar Aluno
+        </Button>
       
 
       </Flex>
    
-       
+      <ConfirmDeleteModal
+        idStudent={id}
+        isOpen={deleteModal}
+        onClose={handleModalClose}
+        message={`Deseja mesmo deletar o aluno ${name}?`}
+      />       
 	
     </Box>
   );

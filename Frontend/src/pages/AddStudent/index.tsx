@@ -1,13 +1,11 @@
 import {
   Box,
   Image,
-  Link as ChakraLink,
   Text,
   FormControl,
   FormErrorMessage,
   Center,
   Button,
-  FormLabel,
   Flex,
   Input,
 } from "@chakra-ui/react";
@@ -16,23 +14,20 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import IconError from "../../assets/errorIcon.png";
 import DeltaLogo from "../../assets/delta_assist_logo_fundo_branco.png";
-import { Link as LinkSignup, useNavigate } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { addStudent } from "../../services/student";
 import { goToHomePage } from "../../router/coordinator";
 const AddStudentSchema = Yup.object().shape({
-  name: Yup.string().when(["email", "password", "phone", "address", "photo"], {
+  name: Yup.string().when(["email", "password", "phone", "address"], {
     is: (val: string) => !val?.length,
     then: () =>
       Yup.string().required("Todos os campos precisam ser preenchidos"),
     otherwise: () => Yup.string().required("Campo obrigatório*"),
   }),
   email: Yup.string().required("Campo obrigatório*"),
-
   phone: Yup.string().required("Campo obrigatório*"),
   address: Yup.string().required("Campo obrigatório*"),
-
-  //  photo: Yup.string().required("Campo obrigatório*"),
 });
 
 const initialValues = {
@@ -46,10 +41,6 @@ const initialValues = {
 function AddStudent() {
   const navigate = useNavigate();
   const [base64Image, setBase64Image] = useState(null);
-  const fileInputRef = useRef(null);
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
 
   const handleSubmit = async (values: {
     name: string;
@@ -88,181 +79,195 @@ function AddStudent() {
   };
 
   return (
-    <Flex alignItems={"center"} marginLeft={"5em"}>
-      <Box>
-    
-                <Box display={"flex"} justifyContent={"center"} m={"1em"}>
-                  <Button onClick={()=>handleButtonClick}>Adicione uma imagem</Button>
-                 
-                  <Input
-                    as={TextField}
-                    id="photoInput" // Adicione um id ao input
-                    name="photo"
-                    type="file"
-                    ref={fileInputRef}
-                   // hidden
-                    onChange={handleImageUpload}
-                  
-            
-                  />
-                </Box>
-               
-            
-              {base64Image && (
-                <Image
-              
-                  src={base64Image}
-                  alt="Uploaded"
-                  style={{ maxWidth: "100%", maxHeight: "100px" }}
-                />
-              )}
+    <Flex alignItems={"center"} h={"100vh"}>
+      <Box marginLeft={"10rem"} marginRight={"20rem"}>
+        {base64Image && (
+          <Image
+            src={base64Image}
+            alt="Uploaded"
+            style={{ width: "250px", height: "150px" }}
+          />
+        )}
 
+        <Box display={"flex"} justifyContent={"center"} m={"1em"}>
+          <label
+            htmlFor="photoInput"
+            className="chakra-button css-ez23ye"
+            style={{
+              width: "12em",
+              height: "2.4em",
+              cursor: "pointer", // Make it cursor pointer like a button
+              padding: "0.375rem 0.75rem", // Match button padding
+              borderRadius: "0.375rem", // Match button border radius
+              backgroundColor: "#3182ce", // Match button background color
+              color: "#fff", // Match button text color
+              border: "none", // Remove border
+              display: "inline-block", // Display inline
+              textAlign: "center", // Center text
+            }}
+          >
+            Adicione uma imagem
+          </label>
+          <Input
+            as={TextField}
+            id="photoInput"
+            name="photo"
+            type="file"
+            hidden
+            onChange={handleImageUpload}
+          />
+        </Box>
       </Box>
       <Formik
-      validationSchema={AddStudentSchema}
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-    >
-      {({ errors, touched, values }) => (
-        <Form>
-          <Box
-            display={"flex"}
-            w={"100vw"}
-            h={"100vh"}
-            backgroundColor={"#FFF"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+        validationSchema={AddStudentSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched, values }) => (
+          <Form>
             <Box
               display={"flex"}
-              flexDirection={"column"}
+              borderRadius={"10px"}
+              w={"850px"}
+              h={"750px"}
+              backgroundColor={"#F0F0F0"}
+              justifyContent={"center"}
               alignItems={"center"}
             >
-              <Image src={DeltaLogo} />
-              <Text marginBottom={"1em"} fontSize="3xl">
-                Adicione um novo aluno ao sistema
-              </Text>
-             
-              <FormControl>
-                {errors.name === "Todos os campos precisam ser preenchidos" ? (
-                  <Box display={"flex"} marginLeft={30} marginBottom={2}>
-                    <Image src={IconError} marginRight={1} />
-                    <Text
-                      fontFamily={"Questrial"}
-                      fontSize={"12px"}
-                      color="red.500"
-                    >
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+              >
+                <Image src={DeltaLogo} />
+                <Text marginBottom={"1em"} fontSize="3xl">
+                  Adicione um novo aluno ao sistema
+                </Text>
+
+                <FormControl>
+                  {errors.name ===
+                  "Todos os campos precisam ser preenchidos" ? (
+                    <Box display={"flex"} marginLeft={30} marginBottom={2}>
+                      <Image src={IconError} marginRight={1} />
+                      <Text
+                        fontFamily={"Questrial"}
+                        fontSize={"12px"}
+                        color="red.500"
+                      >
+                        {errors.name}
+                      </Text>
+                    </Box>
+                  ) : null}
+                  <Box display={"flex"} justifyContent={"center"}>
+                    <Field
+                      as={TextField}
+                      name="name"
+                      placeholder="Digite o nome do aluno..."
+                      type="name"
+                      hasError={errors.name}
+                      isCheck={errors.name === undefined && values.name !== ""}
+                    />
+                  </Box>
+                  <FormErrorMessage name="name" />
+                  {errors.name === "Campo obrigatório*" && touched.name ? (
+                    <Text fontFamily={"Questrial"} color="red.500">
                       {errors.name}
                     </Text>
+                  ) : null}
+                </FormControl>
+                <br />
+                <FormControl>
+                  <Box display={"flex"} justifyContent={"center"}>
+                    <Field
+                      as={TextField}
+                      name="email"
+                      placeholder="Digite o Email do aluno..."
+                      type="email"
+                      hasError={errors.email}
+                      isCheck={
+                        errors.email === undefined && values.email !== ""
+                      }
+                    />
                   </Box>
-                ) : null}
-                <Box display={"flex"} justifyContent={"center"}>
-                  <Field
-                    as={TextField}
-                    name="name"
-                    placeholder="Digite o nome do aluno..."
-                    type="name"
-                    hasError={errors.name}
-                    isCheck={errors.name === undefined && values.name !== ""}
-                  />
-                </Box>
-                <FormErrorMessage name="name" />
-                {errors.name === "Campo obrigatório*" && touched.name ? (
-                  <Text fontFamily={"Questrial"} color="red.500">
-                    {errors.name}
-                  </Text>
-                ) : null}
-              </FormControl>
-              <br />
-              <FormControl>
-                <Box display={"flex"} justifyContent={"center"}>
-                  <Field
-                    as={TextField}
-                    name="email"
-                    placeholder="Digite o Email do aluno..."
-                    type="email"
-                    hasError={errors.email}
-                    isCheck={errors.email === undefined && values.email !== ""}
-                  />
-                </Box>
-                <FormErrorMessage name="email" />
-                {errors.email === "Campo obrigatório*" && touched.email ? (
-                  <Text fontFamily={"Questrial"} color="red.500">
-                    {errors.email}
-                  </Text>
-                ) : null}
-              </FormControl>
-              <br />
-              <FormControl>
-                <Box display={"flex"} justifyContent={"center"}>
-                  <Field
-                    as={TextField}
-                    name="phone"
-                    placeholder="Digite o telefone do aluno..."
-                    type="phone"
-                    hasError={errors.phone}
-                    isCheck={errors.phone === undefined && values.phone !== ""}
-                  />
-                </Box>
-                <FormErrorMessage name="phone" />
-                {errors.phone === "Campo obrigatório*" && touched.phone ? (
-                  <Text fontFamily={"Questrial"} color="red.500">
-                    {errors.phone}
-                  </Text>
-                ) : null}
-              </FormControl>
-              <br />
-              <FormControl>
-                <Box display={"flex"} justifyContent={"center"}>
-                  <Field
-                    as={TextField}
-                    name="address"
-                    placeholder="Digite o endereço do aluno..."
-                    type="name"
-                    hasError={errors.address}
-                    isCheck={
-                      errors.address === undefined && values.address !== ""
-                    }
-                  />
-                </Box>
-                <FormErrorMessage name="address" />
-                {errors.address === "Campo obrigatório*" && touched.address ? (
-                  <Text fontFamily={"Questrial"} color="red.500">
-                    {errors.address}
-                  </Text>
-                ) : null}
-              </FormControl>
-           
-             
-              <Center display={"flex"}>
-                <Button
-                  m={"2em"}
-                  size="lg"
-                  type={"submit"}
-                  onClick={() => {
-                    goToHomePage(navigate);
-                  }}
-                >
-                  Voltar
-                </Button>
-                <Button
-                  size="lg"
-                  m={"2em"}
-                  color={"white"}
-                  backgroundColor={"#0089BF"}
-                  _hover={{ backgroundColor: "#33A1CC" }}
-                  type={"submit"}
-                >
-                  Adicionar
-                </Button>
-              </Center>
+                  <FormErrorMessage name="email" />
+                  {errors.email === "Campo obrigatório*" && touched.email ? (
+                    <Text fontFamily={"Questrial"} color="red.500">
+                      {errors.email}
+                    </Text>
+                  ) : null}
+                </FormControl>
+                <br />
+                <FormControl>
+                  <Box display={"flex"} justifyContent={"center"}>
+                    <Field
+                      as={TextField}
+                      name="phone"
+                      placeholder="Digite o telefone do aluno..."
+                      type="phone"
+                      hasError={errors.phone}
+                      isCheck={
+                        errors.phone === undefined && values.phone !== ""
+                      }
+                    />
+                  </Box>
+                  <FormErrorMessage name="phone" />
+                  {errors.phone === "Campo obrigatório*" && touched.phone ? (
+                    <Text fontFamily={"Questrial"} color="red.500">
+                      {errors.phone}
+                    </Text>
+                  ) : null}
+                </FormControl>
+                <br />
+                <FormControl>
+                  <Box display={"flex"} justifyContent={"center"}>
+                    <Field
+                      as={TextField}
+                      name="address"
+                      placeholder="Digite o endereço do aluno..."
+                      type="name"
+                      hasError={errors.address}
+                      isCheck={
+                        errors.address === undefined && values.address !== ""
+                      }
+                    />
+                  </Box>
+                  <FormErrorMessage name="address" />
+                  {errors.address === "Campo obrigatório*" &&
+                  touched.address ? (
+                    <Text fontFamily={"Questrial"} color="red.500">
+                      {errors.address}
+                    </Text>
+                  ) : null}
+                </FormControl>
+
+                <Center display={"flex"}>
+                  <Button
+                    m={"2em"}
+                    size="lg"
+                    type={"submit"}
+                    onClick={() => {
+                      goToHomePage(navigate);
+                    }}
+                  >
+                    Voltar
+                  </Button>
+                  <Button
+                    size="lg"
+                    m={"2em"}
+                    color={"white"}
+                    backgroundColor={"#0089BF"}
+                    _hover={{ backgroundColor: "#33A1CC" }}
+                    type={"submit"}
+                  >
+                    Adicionar
+                  </Button>
+                </Center>
+              </Box>
             </Box>
-          </Box>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
     </Flex>
-   
   );
 }
 

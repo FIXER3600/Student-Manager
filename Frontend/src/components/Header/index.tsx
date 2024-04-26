@@ -1,6 +1,6 @@
 import { Button, Flex, Image, Input,InputGroup,InputRightElement} from '@chakra-ui/react'
 import { SearchIcon } from "@chakra-ui/icons"
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import DeltaLogo from "../../assets/delta_assist_logo.jpg"
 import { GlobalContext } from '../../GlobalContext/globalContext'
 import { goToLoginPage } from '../../router/coordinator'
@@ -12,8 +12,8 @@ function Header() {
   }
   const navigate=useNavigate()
   return (
-    <Flex backgroundColor={"#08699B"} h={"10em"} >
-	<Image src={DeltaLogo} />
+    <Flex backgroundColor={"#08699B"} h={"10em"} w={"100vw"}>
+	<Image src={DeltaLogo} w={"150px"} h={"10em"}/>
 	<Flex alignItems={"center"} justifyContent={"space-around"}>
 	<InputGroup margin={"1em"}
 	w={"80vw"} >
@@ -32,7 +32,7 @@ function Header() {
 
         />
       </InputGroup>
-      <Button onClick={()=>goToLoginPage(navigate)}>Sair</Button>
+      <Button marginLeft={"0.5em"} onClick={()=>goToLoginPage(navigate)}>Sair</Button>
       </Flex>
     </Flex>
   )
